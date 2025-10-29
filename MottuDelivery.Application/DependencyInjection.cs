@@ -1,4 +1,4 @@
-using AutoMapper;
+using AutoMapper.Extensions.Microsoft.DependencyInjection;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using MottuDelivery.Application.Mappings;
