@@ -1,8 +1,6 @@
 using AutoMapper;
 using MottuDelivery.Application.DTOs;
 using MottuDelivery.Domain.Entities;
-using MottuDelivery.Domain.Enums;
-using MottuDelivery.Domain.ValueObjects;
 
 namespace MottuDelivery.Application.Mappings;
 
@@ -10,62 +8,48 @@ public class MappingProfile : Profile
 {
     public MappingProfile()
     {
-        // Entregador mappings
-        CreateMap<Entregador, EntregadorDto>()
+        // Cliente mappings
+        CreateMap<Cliente, ClienteDto>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()))
-            .ForMember(dest => dest.TotalEntregas, opt => opt.MapFrom(src => src.Entregas.Count));
+            .ForMember(dest => dest.TotalPedidos, opt => opt.MapFrom(src => src.Pedidos.Count));
 
-        CreateMap<CreateEntregadorDto, Entregador>()
-            .ConstructUsing(src => new Entregador(src.Nome, src.Cpf, src.Telefone, src.Email));
+        CreateMap<CreateClienteDto, Cliente>()
+            .ConstructUsing(src => new Cliente(src.Nome, src.Email));
 
-        CreateMap<UpdateEntregadorDto, Entregador>()
+        CreateMap<UpdateClienteDto, Cliente>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
-        // Endereco mappings
-        CreateMap<Endereco, EnderecoDto>();
-        CreateMap<EnderecoDto, Endereco>()
-            .ConstructUsing(src => new Endereco(
-                src.Logradouro,
-                src.Numero,
-                src.Complemento,
-                src.Bairro,
-                src.Cidade,
-                src.Estado,
-                src.Cep));
-
-        // Entrega mappings
-        CreateMap<Entrega, EntregaDto>()
+        // Funcionario mappings
+        CreateMap<Funcionario, FuncionarioDto>()
             .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()))
-            .ForMember(dest => dest.EntregadorNome, opt => opt.MapFrom(src => src.Entregador.Nome))
-            .ForMember(dest => dest.TempoTotalEntrega, opt => opt.MapFrom(src => src.TempoTotalEntrega()));
+            .ForMember(dest => dest.TotalPedidos, opt => opt.MapFrom(src => src.Pedidos.Count));
 
-        CreateMap<CreateEntregaDto, Entrega>()
-            .ConstructUsing(src => new Entrega(
-                src.Descricao,
-                new Endereco(
-                    src.EnderecoOrigem.Logradouro,
-                    src.EnderecoOrigem.Numero,
-                    src.EnderecoOrigem.Complemento,
-                    src.EnderecoOrigem.Bairro,
-                    src.EnderecoOrigem.Cidade,
-                    src.EnderecoOrigem.Estado,
-                    src.EnderecoOrigem.Cep),
-                new Endereco(
-                    src.EnderecoDestino.Logradouro,
-                    src.EnderecoDestino.Numero,
-                    src.EnderecoDestino.Complemento,
-                    src.EnderecoDestino.Bairro,
-                    src.EnderecoDestino.Cidade,
-                    src.EnderecoDestino.Estado,
-                    src.EnderecoDestino.Cep),
-                src.EntregadorId,
-                src.Observacoes));
+        CreateMap<CreateFuncionarioDto, Funcionario>()
+            .ConstructUsing(src => new Funcionario(src.Nome, src.Cargo, src.Salario));
+
+        CreateMap<UpdateFuncionarioDto, Funcionario>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+
+        // Pedido mappings
+        CreateMap<Pedido, PedidoDto>()
+            .ForMember(dest => dest.Status, opt => opt.MapFrom(src => src.Status.ToString()))
+            .ForMember(dest => dest.ClienteNome, opt => opt.MapFrom(src => src.Cliente.Nome))
+            .ForMember(dest => dest.FuncionariosNomes, opt => opt.MapFrom(src => src.Funcionarios.Select(f => f.Nome)));
+
+        CreateMap<CreatePedidoDto, Pedido>()
+            .ConstructUsing(src => new Pedido(src.Descricao, src.ClienteId, src.ValorTotal, src.Observacoes));
+
+        CreateMap<UpdatePedidoDto, Pedido>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
         // Status mappings
-        CreateMap<string, StatusEntrega>()
-            .ConvertUsing(src => Enum.Parse<StatusEntrega>(src, true));
+        CreateMap<string, Domain.Enums.StatusPedido>()
+            .ConvertUsing(src => Enum.Parse<Domain.Enums.StatusPedido>(src, true));
 
-        CreateMap<string, StatusEntregador>()
-            .ConvertUsing(src => Enum.Parse<StatusEntregador>(src, true));
+        CreateMap<string, Domain.Enums.StatusFuncionario>()
+            .ConvertUsing(src => Enum.Parse<Domain.Enums.StatusFuncionario>(src, true));
+
+        CreateMap<string, Domain.Enums.StatusCliente>()
+            .ConvertUsing(src => Enum.Parse<Domain.Enums.StatusCliente>(src, true));
     }
 }

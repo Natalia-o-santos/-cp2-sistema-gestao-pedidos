@@ -19,8 +19,9 @@ public static class DependencyInjection
         });
 
         // Repositories
-        services.AddScoped<IEntregadorRepository, EntregadorRepository>();
-        services.AddScoped<IEntregaRepository, EntregaRepository>();
+        services.AddScoped<IClienteRepository, ClienteRepository>();
+        services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+        services.AddScoped<IPedidoRepository, PedidoRepository>();
 
         return services;
     }

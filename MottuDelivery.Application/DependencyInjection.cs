@@ -15,11 +15,12 @@ public static class DependencyInjection
         services.AddAutoMapper(typeof(MappingProfile));
 
         // FluentValidation
-        services.AddValidatorsFromAssemblyContaining<CreateEntregadorDtoValidator>();
+        services.AddValidatorsFromAssemblyContaining<CreateClienteDtoValidator>();
 
         // Services
-        services.AddScoped<IEntregadorService, EntregadorService>();
-        services.AddScoped<IEntregaService, EntregaService>();
+        services.AddScoped<IClienteService, ClienteService>();
+        services.AddScoped<IFuncionarioService, FuncionarioService>();
+        services.AddScoped<IPedidoService, PedidoService>();
 
         return services;
     }
