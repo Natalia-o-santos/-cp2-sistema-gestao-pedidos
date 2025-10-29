@@ -7,16 +7,32 @@ Sistema de gestão de pedidos desenvolvido como **evolução do CP1**, aplicando
 ### 🎯 Evolução do CP1 para CP2
 
 **CP1 - Sistema Básico:**
-- Entidades simples: Cliente, Funcionário, Pedido
-- Relacionamentos diretos sem validações
-- Estrutura monolítica
+```csharp
+// Entidades simples do CP1
+public class cliente
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Nome { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public List<pedido> Pedidos { get; set; } = new();
+}
+```
 
 **CP2 - Sistema Evoluído:**
-- Entidades ricas com comportamento e validações
-- Clean Architecture com 4 camadas
-- API RESTful com DTOs e mapeamento
-- Banco de dados com migrations
-- Documentação completa com Swagger
+```csharp
+// Evolução das entidades do CP1 com Clean Architecture
+public class Cliente
+{
+    public Guid Id { get; private set; }
+    public string Nome { get; private set; } = string.Empty;
+    public string Email { get; private set; } = string.Empty;
+    public DateTime DataCadastro { get; private set; }
+    public StatusCliente Status { get; private set; }
+    public ICollection<Pedido> Pedidos { get; private set; } = new List<Pedido>();
+    
+    // + Validações, comportamentos e regras de negócio
+}
+```
 
 ### 💡 Problema Resolvido
 
@@ -318,6 +334,3 @@ curl -X POST "https://localhost:7001/api/entregadores" \
 
 **Advanced Business Development with .NET - 2025**
 
----
-
-*"Faça o teu melhor, na condição que você tem, enquanto você não tem condições melhores, para fazer melhor ainda."* — Mario Sergio Cortella

@@ -1,35 +1,38 @@
 namespace MottuDelivery.Domain.Entities;
 
+// Evolução da classe 'pedido' do CP1
+// CP1: public class pedido { public Guid Id { get; set; } = Guid.NewGuid(); public DateTime Data { get; set; } = DateTime.Now; public Guid UsuarioId { get; set; } public cliente? Usuario { get; set; } public List<funcionario> Funcionarios { get; set; } = new(); }
 public class Pedido
 {
     public Guid Id { get; private set; }
     public string Descricao { get; private set; } = string.Empty;
     public Enums.StatusPedido Status { get; private set; }
-    public DateTime DataCriacao { get; private set; }
+    public DateTime DataCriacao { get; private set; } // Evolução do CP1: DateTime Data
     public DateTime? DataInicio { get; private set; }
     public DateTime? DataConclusao { get; private set; }
     public string? Observacoes { get; private set; }
     public decimal ValorTotal { get; private set; }
 
-    // Foreign Keys
-    public Guid ClienteId { get; private set; }
+    // Foreign Keys (evolução do CP1: Guid UsuarioId)
+    public Guid ClienteId { get; private set; } // Renomeado de UsuarioId para ClienteId
 
-    // Navigation Properties
-    public Cliente Cliente { get; private set; } = null!;
-    public ICollection<Funcionario> Funcionarios { get; private set; } = new List<Funcionario>();
+    // Navigation Properties (evolução do CP1: cliente? Usuario e List<funcionario> Funcionarios)
+    public Cliente Cliente { get; private set; } = null!; // Evolução: cliente? Usuario
+    public ICollection<Funcionario> Funcionarios { get; private set; } = new List<Funcionario>(); // Mantém: List<funcionario> Funcionarios
 
     // Construtor privado para EF Core
     private Pedido() { }
 
+    // Evolução: Adiciona validações e comportamentos ao construtor simples do CP1
     public Pedido(string descricao, Guid clienteId, decimal valorTotal, string? observacoes = null)
     {
         Id = Guid.NewGuid();
         Descricao = ValidarDescricao(descricao);
-        ClienteId = clienteId;
+        ClienteId = clienteId; // Evolução do CP1: UsuarioId
         ValorTotal = ValidarValorTotal(valorTotal);
         Observacoes = observacoes;
         Status = Enums.StatusPedido.Pendente;
-        DataCriacao = DateTime.UtcNow;
+        DataCriacao = DateTime.UtcNow; // Mantém a lógica do CP1: DateTime.Now
     }
 
     public void IniciarProcessamento()

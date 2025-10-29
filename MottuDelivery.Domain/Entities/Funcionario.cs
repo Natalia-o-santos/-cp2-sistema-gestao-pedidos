@@ -1,5 +1,7 @@
 namespace MottuDelivery.Domain.Entities;
 
+// Evolução da classe 'funcionario' do CP1
+// CP1: public class funcionario { public Guid Id { get; set; } = Guid.NewGuid(); public string Nome { get; set; } = string.Empty; public string Cargo { get; set; } = string.Empty; public decimal Salario { get; set; } public DateTime DataContratacao { get; set; } = DateTime.Now; }
 public class Funcionario
 {
     public Guid Id { get; private set; }
@@ -10,19 +12,20 @@ public class Funcionario
     public Enums.StatusFuncionario Status { get; private set; }
     public DateTime? DataUltimaAtualizacao { get; private set; }
 
-    // Navigation Properties
+    // Navigation Properties (evolução: relacionamento com pedidos)
     public ICollection<Pedido> Pedidos { get; private set; } = new List<Pedido>();
 
     // Construtor privado para EF Core
     private Funcionario() { }
 
+    // Evolução: Adiciona validações ao construtor simples do CP1
     public Funcionario(string nome, string cargo, decimal salario)
     {
         Id = Guid.NewGuid();
         Nome = ValidarNome(nome);
         Cargo = ValidarCargo(cargo);
         Salario = ValidarSalario(salario);
-        DataContratacao = DateTime.UtcNow;
+        DataContratacao = DateTime.UtcNow; // Mantém a lógica do CP1: DateTime.Now
         Status = Enums.StatusFuncionario.Ativo;
     }
 

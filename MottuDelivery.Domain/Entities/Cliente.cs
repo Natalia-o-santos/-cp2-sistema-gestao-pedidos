@@ -1,5 +1,7 @@
 namespace MottuDelivery.Domain.Entities;
 
+// Evolução da classe 'cliente' do CP1
+// CP1: public class cliente { public Guid Id { get; set; } = Guid.NewGuid(); public string Nome { get; set; } = string.Empty; public string Email { get; set; } = string.Empty; public List<pedido> Pedidos { get; set; } = new(); }
 public class Cliente
 {
     public Guid Id { get; private set; }
@@ -9,12 +11,13 @@ public class Cliente
     public DateTime? DataUltimaAtualizacao { get; private set; }
     public Enums.StatusCliente Status { get; private set; }
 
-    // Navigation Properties
+    // Navigation Properties (evolução do CP1: List<pedido> Pedidos)
     public ICollection<Pedido> Pedidos { get; private set; } = new List<Pedido>();
 
     // Construtor privado para EF Core
     private Cliente() { }
 
+    // Evolução: Adiciona validações e comportamentos ao construtor simples do CP1
     public Cliente(string nome, string email)
     {
         Id = Guid.NewGuid();

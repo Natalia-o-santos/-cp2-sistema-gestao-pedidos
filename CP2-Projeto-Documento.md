@@ -9,16 +9,50 @@ Este projeto é uma **evolução natural do CP1**, onde desenvolvemos um sistema
 ### 🚀 Evolução do CP1 para CP2
 
 **CP1 - Sistema Básico:**
-- Entidades simples com propriedades básicas
-- Relacionamentos diretos sem validações
-- Estrutura monolítica sem separação de responsabilidades
+```csharp
+// Entidades simples do CP1
+public class cliente
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Nome { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+    public List<pedido> Pedidos { get; set; } = new();
+}
+
+public class funcionario
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public string Nome { get; set; } = string.Empty;
+    public string Cargo { get; set; } = string.Empty;
+    public decimal Salario { get; set; }
+    public DateTime DataContratacao { get; set; } = DateTime.Now;
+}
+
+public class pedido
+{
+    public Guid Id { get; set; } = Guid.NewGuid();
+    public DateTime Data { get; set; } = DateTime.Now;
+    public Guid UsuarioId { get; set; }
+    public cliente? Usuario { get; set; }
+    public List<funcionario> Funcionarios { get; set; } = new();
+}
+```
 
 **CP2 - Sistema Evoluído:**
-- Entidades ricas com comportamento e validações
-- Clean Architecture com 4 camadas bem definidas
-- API RESTful com DTOs e mapeamento
-- Banco de dados com migrations e relacionamentos complexos
-- Documentação completa com Swagger
+```csharp
+// Evolução das entidades do CP1 com Clean Architecture
+public class Cliente
+{
+    public Guid Id { get; private set; }
+    public string Nome { get; private set; } = string.Empty;
+    public string Email { get; private set; } = string.Empty;
+    public DateTime DataCadastro { get; private set; }
+    public StatusCliente Status { get; private set; }
+    public ICollection<Pedido> Pedidos { get; private set; } = new List<Pedido>();
+    
+    // + Validações, comportamentos e regras de negócio
+}
+```
 
 ### 💡 Problema Identificado
 
