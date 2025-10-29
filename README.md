@@ -1,10 +1,10 @@
-# 🚀 Sistema de Gestão de Pedidos - CP2
+# Sistema de Gestão de Pedidos - CP2 - 2tdspr
 
-## 📋 Descrição do Projeto
+## Descrição do Projeto
 
 Sistema de gestão de pedidos desenvolvido como **evolução do CP1**, aplicando os princípios de **Clean Architecture** e **Domain-Driven Design (DDD)**. Este projeto transforma o sistema básico do CP1 em uma API RESTful robusta e escalável.
 
-### 🎯 Evolução do CP1 para CP2
+### 🎯 Evolução do CP1 para CP2 coforme pedido em aula
 
 **CP1 - Sistema Básico:**
 ```csharp
@@ -34,7 +34,7 @@ public class Cliente
 }
 ```
 
-### 💡 Problema Resolvido
+### Problema Resolvido
 
 O CP2 resolve os seguintes desafios identificados no CP1:
 - Código acoplado e difícil de manter
@@ -43,7 +43,7 @@ O CP2 resolve os seguintes desafios identificados no CP1:
 - Dificuldade para evoluir e escalar
 - Falta de documentação e testes
 
-### 🚀 Solução Implementada
+### Solução Implementada
 
 - **Gestão completa de Clientes**: Cadastro, atualização e controle de status
 - **Gestão de Funcionários**: Cadastro com cargo e salário, controle de disponibilidade
@@ -51,7 +51,7 @@ O CP2 resolve os seguintes desafios identificados no CP1:
 - **Relacionamentos inteligentes**: Sistema de relacionamentos complexos entre entidades
 - **API RESTful robusta**: Endpoints bem documentados com respostas HTTP apropriadas
 
-## 🏗️ Arquitetura
+## Arquitetura
 
 ### Clean Architecture + DDD
 
@@ -78,7 +78,7 @@ MottuDelivery.Infrastructure (Infrastructure Layer)
 └── Repositories
 ```
 
-### 🎯 Princípios Aplicados
+### Princípios Aplicados
 
 - **Separação de Responsabilidades**: Cada camada tem sua responsabilidade específica
 - **Inversão de Dependência**: Interfaces definidas no Domain, implementadas na Infrastructure
@@ -97,7 +97,7 @@ MottuDelivery.Infrastructure (Infrastructure Layer)
 - **Clean Architecture** - Padrão arquitetural
 - **Domain-Driven Design** - Metodologia de design
 
-## 📊 Entidades do Domínio
+##  Entidades do Domínio
 
 ### 👤 Cliente
 - **Propriedades**: ID, Nome, Email, Status, Datas
@@ -118,7 +118,7 @@ MottuDelivery.Infrastructure (Infrastructure Layer)
 - **Cliente → Pedido**: 1:N (Um cliente pode ter vários pedidos)
 - **Funcionário ↔ Pedido**: N:N (Muitos funcionários podem trabalhar em muitos pedidos)
 
-## 🚀 Rotas Disponíveis
+## Rotas Disponíveis
 
 ### Clientes (`/api/clientes`)
 
@@ -314,23 +314,9 @@ curl -X POST "https://localhost:7001/api/entregadores" \
 - Validações com FluentValidation
 - Tratamento de exceções global
 
-### ✅ Banco de Dados
-- MySQL com EF Core
-- Migrations configuradas
-- Seed data para testes
-
-### ✅ Documentação
-- Swagger/OpenAPI completo
-- Comentários XML nos controllers
-- README detalhado
-
 ## 👥 Equipe
 
-- **RM557356** - Alex Ribeiro
-- **RM559433** - Felipe Damasceno  
+- **RM559999** - Bruno Mateus Tizer das Chagas
 - **RM560306** - Natalia dos Santos
 
-## 📚 Disciplina
-
-**Advanced Business Development with .NET - 2025**
 
